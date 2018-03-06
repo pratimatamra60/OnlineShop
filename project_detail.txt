@@ -1,0 +1,15 @@
+Angular Organic Shop Project(install node from node.org with npm)
+1. ng new oshop
+2. try npm start to run live server. check the angular version and npm versions
+3. npm i --save firebase@4.2.0 angularfire2@4.0.0-rc-1
+4. npm i --save bootstrap@4.0.0-beta
+5. create components and do routing
+6. Firebase deploy check if you have firebase installed
+    firebase --version
+    firebase login if already logged in do firebase init
+    choose hosting by using space key, choose oshop fire base project this creates firebase.json file and another make changes
+    now in cmd ng build --prod
+    and firebase deploy that gives you hosting url:
+7.login page implementation
+go to firebase authentication for users signin providers enable the sign-in providers
+8. authState is an observable to check the userinfo
