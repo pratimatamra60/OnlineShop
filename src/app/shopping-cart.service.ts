@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Product } from './models/products';
 import 'rxjs/add/operator/take'; // to avoid subscribing an observable and unsubscribing
+import { promise } from 'selenium-webdriver';
 @Injectable()
 export class ShoppingCartService {
 
@@ -11,7 +12,8 @@ export class ShoppingCartService {
       dateCreated: new Date().getTime()
     });
   }
-  private getCart(cartId: string) {
+  async getCart() {
+    const cartId = await this.getOrCreateCartId();
     return this.db.object('/shopping-carts/' + cartId);
   }
 
@@ -20,7 +22,7 @@ export class ShoppingCartService {
 
 
   }
-  private async getOrCreateCartId() {
+  private async getOrCreateCartId(): Promise <string> {
     const cartId = localStorage.getItem('cartId');
     if (cartId) {
       return cartId;
