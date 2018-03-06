@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-
+import { Product } from './models/products';
+import 'rxjs/add/operator/take'; // to avoid subscribing an observable and unsubscribing
 @Injectable()
 export class ShoppingCartService {
 
@@ -11,15 +12,29 @@ export class ShoppingCartService {
     });
   }
   private getCart(cartId: string) {
-    return this.db.object('/shopping-carts/' + cartId)
+    return this.db.object('/shopping-carts/' + cartId);
   }
-  private async getOrCreateCart() {
-    const cardId = localStorage.getItem('cartId');
-    if (!cardId) {
+
+  private getItem(cartId: string, productId: string) {
+    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
+
+
+  }
+  private async getOrCreateCartId() {
+    const cartId = localStorage.getItem('cartId');
+    if (cartId) {
+      return cartId;
+    }
       const result = await this.create();
       localStorage.setItem('cardId', result.key);
-      return this.getCart(result.key);
+      return result.key;
     }
-      return this.getCart(cardId);
+
+async addToCart(product: Product) {
+      const cartId = await this.getOrCreateCartId();
+      const item$ = this.getItem(cartId, product.$key);
+      item$.take(1).subscribe(item => {
+       item$.update({ product: product, quantity: (item.quantity || 0) + 1 });
+      });
     }
   }
