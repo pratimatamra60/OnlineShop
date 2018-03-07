@@ -33,6 +33,7 @@ import { AdminAuthGuardService } from './admin-auth-guard.service';
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
 import { ShoppingCartService } from './shopping-cart.service';
+import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 
 
 
@@ -51,7 +52,8 @@ import { ShoppingCartService } from './shopping-cart.service';
     LoginComponent,
     ProductFormComponent,
     ProductFilterComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductQuantityComponent
   ],
   imports: [
     BrowserModule,

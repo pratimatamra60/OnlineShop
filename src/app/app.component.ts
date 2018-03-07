@@ -19,7 +19,7 @@ constructor(private userService: UserService, private auth: AuthService, private
       if (!returnUrl) {
         return;
       }
-        localStorage.removeItem('returnUrl');
+      localStorage.removeItem('returnUrl');
       router.navigateByUrl(returnUrl);
   });
  }
